@@ -3,6 +3,9 @@ const { src, dest, watch, series, parallel } = require("gulp");
 const concat = require("gulp-concat");
 const uglify = require("gulp-uglify-es").default;
 const cleancss = require("gulp-clean-css");
+const gulpCleanCss = require("gulp-clean-css");
+const browsersync = require("browser-sync").create();
+const reload = browsersync.reload;
 
 // File paths
 const files = {
@@ -42,7 +45,15 @@ function copyimg(){
 
 // Watcher
 function watchTask(){
-    watch([files.htmlPath, files.jsPath, files.cssPath, files.imgPath], parallel(copyHTML, jsTask, cssTask, copyimg));
+
+    browsersync.init({
+        server: {
+            baseDir: "./pub"
+        }
+    });
+
+    watch([files.htmlPath, files.jsPath, files.cssPath, files.imgPath], 
+        parallel(copyHTML, jsTask, cssTask, copyimg)).on('change', browsersync.reload);
 }
 
 // Default task
