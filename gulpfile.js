@@ -3,9 +3,7 @@ const { src, dest, watch, series, parallel } = require("gulp");
 const concat = require("gulp-concat");
 const uglify = require("gulp-uglify-es").default;
 const cleancss = require("gulp-clean-css");
-const gulpCleanCss = require("gulp-clean-css");
 const browsersync = require("browser-sync").create();
-const reload = browsersync.reload;
 
 // File paths
 const files = {
